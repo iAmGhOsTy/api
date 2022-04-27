@@ -1,14 +1,16 @@
 const express = require("express");
-
 const app = express();
 
 app.use(express.json());
 
+
+//tnd data
 let wyr = require('./tnd/wyr.json')
 let truth = require('./tnd/truths.json');
 let dare = require('./tnd/dares.json');
 let nhie = require('./tnd/nhie.json');
 
+//image data
 let catarray = require('./image/cats.json')
 let dogarray = require('./image/dogs.json')
 let foxarray = require('./image/foxs.json')
