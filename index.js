@@ -16,8 +16,10 @@ let dogarray = require('./image/dogs.json')
 let foxarray = require('./image/foxs.json')
 
 
+app.set('view engine', 'ejs');
+
 app.get('/', (req, res) => {
-  res.json({ data: "Parameter required " });
+  res.render('home');
 });
 
 // IMAGE ENDPOINTS
