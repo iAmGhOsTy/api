@@ -50,6 +50,7 @@ app.get("/dare", (req, res) => {
 });
 app.get("/truth", (req, res) => {
   res.json({ data: truth[Math.floor(Math.random() * truth.length)] })
+ // res.status(400).json(`NOT FOUND `)
 });
 app.get("/nhie", (req, res) => {
   type = req.query.type || "normal";                               // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
