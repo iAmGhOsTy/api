@@ -1,19 +1,19 @@
 const express = require("express");
 const app = express();
+require('dotenv').config();
 
 app.use(express.json());
 
 
 //tnd data
-let wyr = require('./tnd/wyr.json')
-let truth = require('./tnd/truths.json');
-let dare = require('./tnd/dares.json');
-let nhie = require('./tnd/nhie.json');
-
+let wyr = require('./endpoints/tnd/wyr.json')
+let truth = require('./endpoints/tnd/truths.json');
+let dare = require('./endpoints/tnd/dares.json');
+let nhie = require('./endpoints/tnd/nhie.json');
 //image data
-let catarray = require('./image/cats.json')
-let dogarray = require('./image/dogs.json')
-let foxarray = require('./image/foxs.json')
+let catarray = require('./endpoints/image/cats.json')
+let dogarray = require('./endpoints/image/dogs.json')
+let foxarray = require('./endpoints/image/foxs.json')
 
 
 app.set('view engine', 'ejs');
@@ -50,7 +50,7 @@ app.get("/dare", (req, res) => {
 });
 app.get("/truth", (req, res) => {
   res.json({ data: truth[Math.floor(Math.random() * truth.length)] })
- // res.status(400).json(`NOT FOUND `)
+  // res.status(400).json(`NOT FOUND🤏☠`)
 });
 app.get("/nhie", (req, res) => {
   type = req.query.type || "normal";                               // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
@@ -58,6 +58,35 @@ app.get("/nhie", (req, res) => {
   if (!nhie1) return res.json({ data: "Can't find that type of data." });
   res.json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
 });
+
+
+//DISCORD BOT STATUS
+
+const { Client, Intents } = require("discord.js");
+const client = new Client({
+  shards: "auto",
+ 
+  allowedMentions: {
+    parse: [ ],
+    repliedUser: false,
+  },
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+ intents: [Intents.FLAGS.GUILDS,
+  Intents.FLAGS.GUILD_MEMBERS],
+});
+
+app.get('/status', (req, res) => {
+  res.render('stats.ejs', {
+          
+    guilds: client.guilds.cache.size,
+    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+  });
+});
+client.on('ready', client => {
+	console.log(`Status Synced as: ${client.user.tag}!`);
+});
+
+client.login(process.env.token)
 
 
 app.listen(3000, () => console.log('Listening in 3000'));
