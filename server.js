@@ -11,9 +11,9 @@ let truth = require('./endpoints/tnd/truths.json');
 let dare = require('./endpoints/tnd/dares.json');
 let nhie = require('./endpoints/tnd/nhie.json');
 //image data
-let catarray = require('./endpoints/image/cats.json')
-let dogarray = require('./endpoints/image/dogs.json')
-let foxarray = require('./endpoints/image/foxs.json')
+let catarray = require('./endpoints/image/animal/cats.json')
+let dogarray = require('./endpoints/image/animal/dogs.json')
+let foxarray = require('./endpoints/image/animal/foxs.json')
 
 
 app.set('view engine', 'ejs');
