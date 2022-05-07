@@ -105,4 +105,4 @@ dist
 .tern-port
 
 # PRIVATE SFTP
-.vscode
+.vscode/
