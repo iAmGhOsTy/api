@@ -95,4 +95,4 @@ client.on('ready', client => {
 client.login(process.env.token)
 
 
-app.listen(3000, () => console.log('Listening in 3000'));
+app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
