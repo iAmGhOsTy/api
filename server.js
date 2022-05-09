@@ -53,7 +53,7 @@ app.get("/truth", (req, res) => {
   // res.status(400).json(`NOT FOUND🤏☠`)
 });
 app.get("/nhie", (req, res) => {
-  type = req.query.type || "normal";                               // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
+  type = req.query.type || "normal";  // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
   let nhie1 = nhie.filter(o => o.type == type.toLowerCase())[0];
   if (!nhie1) return res.json({ data: "Can't find that type of data." });
   res.json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
