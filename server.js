@@ -82,6 +82,12 @@ app.get('/status', (req, res) => {
     users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
   });
 });
+app.get("/botinfo",(req,res)=>{
+  res.json({
+    servers: client.guilds.cache.size,
+    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+  })
+})
 client.on('ready', client => {
 	console.log(`Status Synced as: ${client.user.tag}!`);
 });
