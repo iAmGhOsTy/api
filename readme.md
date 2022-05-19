@@ -19,3 +19,4 @@ Api made for private use.
 ### BOT
 servers
  users
+/botinfo
