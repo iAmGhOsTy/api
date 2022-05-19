@@ -64,7 +64,7 @@ app.get("/nhie", (req, res) => {
 
 const { Client, Intents } = require("discord.js");
 const client = new Client({
-  shards: "auto",
+  // shards: "auto",
  
   allowedMentions: {
     parse: [ ],
