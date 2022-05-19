@@ -6,14 +6,20 @@
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": ["api",  "node", "express"],
+  "keywords": [
+    "api",
+    "node",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.7",
     "express": "3.0.0alpha4",
-    "node-fetch": "^2.0.5"
+    "node-fetch": "^2.0.5",
+    "puppeteer": "^14.1.0"
   }
 }
