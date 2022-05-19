@@ -106,3 +106,7 @@ dist
 
 # PRIVATE SFTP
 .vscode/
+
+# PERSONAL STUFF
+token.py
+scrape.js
