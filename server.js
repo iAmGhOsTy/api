@@ -91,8 +91,10 @@ app.get("/botinfo",(req,res)=>{
 client.on('ready', client => {
 	console.log(`Status Synced as: ${client.user.tag}!`);
 });
+client.on('debug', console.log)
+client.on('rateLimit', console.log)
 
-client.login(process.env.token)
+client.login(process.env.dreamer_token)
 
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
