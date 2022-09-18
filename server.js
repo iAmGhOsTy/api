@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
-const logger = require("morgan");
+const morgan = require("morgan");
 require('dotenv').config();
 
 app.use(express.json());
-app.use(logger("dev"));
+app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
 
 //tnd data
 let wyr = require('./endpoints/tnd/wyr.json')
@@ -94,13 +94,13 @@ app.get("/botinfo",(req,res)=>{
   })
 })
 client.on('ready', client => {
-  client.user.setPresence({ activities: [{ name: 'UNDER MAINTAINANCE', type: "WATCHING" }] })
+ // client.user.setPresence({ activities: [{ name: 'UNDER MAINTAINANCE', type: "WATCHING" }] })
 	console.log(`Status Synced as: ${client.user.tag}!`);
 });
-client.on('debug', console.log)
+//client.on('debug', console.log)
 client.on('rateLimit', console.log)
 
-//client.login(process.env.serum_token)
+client.login(process.env.serum_token)
 
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
