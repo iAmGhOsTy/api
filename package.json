@@ -11,7 +11,7 @@
     "node",
     "express"
   ],
-  "author": "",
+  "author": "GhOsTy",
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
@@ -19,6 +19,7 @@
     "dotenv": "^16.0.0",
     "ejs": "^3.1.7",
     "express": "3.0.0alpha4",
+    "morgan": "^1.10.0",
     "node-fetch": "^2.0.5",
     "puppeteer": "^14.1.0"
   }

@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
+const logger = require("morgan");
 require('dotenv').config();
 
 app.use(express.json());
-
+app.use(logger("dev"));
 
 //tnd data
 let wyr = require('./endpoints/tnd/wyr.json')
@@ -62,39 +63,44 @@ app.get("/nhie", (req, res) => {
 
 //DISCORD BOT STATUS
 
-const { Client, Intents } = require("discord.js");
+const { Client } = require("discord.js");
 const client = new Client({
-  // shards: "auto",
+   shards: "auto",
  
   allowedMentions: {
     parse: [ ],
     repliedUser: false,
   },
+  
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
- intents: [Intents.FLAGS.GUILDS,
-  Intents.FLAGS.GUILD_MEMBERS],
+ intents: 1,
+ // presence: {status: "dnd", activity: {name: "UNDER MAINTAINANCE", type: "WATCHING"}},
 });
 
 app.get('/status', (req, res) => {
   res.render('stats.ejs', {
           
     guilds: client.guilds.cache.size,
-    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
+    channels: client.channels.cache.size,
   });
 });
 app.get("/botinfo",(req,res)=>{
   res.json({
+    name: client.user.username,
     servers: client.guilds.cache.size,
-    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0)
+    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
+    channels: client.channels.cache.size,
   })
 })
 client.on('ready', client => {
+  client.user.setPresence({ activities: [{ name: 'UNDER MAINTAINANCE', type: "WATCHING" }] })
 	console.log(`Status Synced as: ${client.user.tag}!`);
 });
 client.on('debug', console.log)
 client.on('rateLimit', console.log)
 
-client.login(process.env.dreamer_token)
+//client.login(process.env.serum_token)
 
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
