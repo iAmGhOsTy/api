@@ -5,10 +5,13 @@ Api made for private use.
 
 ## LIST OF END-POINTS
 
-### ANIMAL
+### image/animal
 1. dog
 2. cat
 3. fox
+
+### image/game
+1. gta5
 
 ### TnD
 1. truth
