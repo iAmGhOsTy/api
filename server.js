@@ -15,6 +15,8 @@ let nhie = require('./endpoints/tnd/nhie.json');
 let catarray = require('./endpoints/image/animal/cats.json')
 let dogarray = require('./endpoints/image/animal/dogs.json')
 let foxarray = require('./endpoints/image/animal/foxs.json')
+// GTA5 DATA  
+let gta5 = require("./endpoints/image/game/gta5/gta5.json")
 
 
 app.set('view engine', 'ejs');
@@ -59,6 +61,12 @@ app.get("/nhie", (req, res) => {
   if (!nhie1) return res.json({ data: "Can't find that type of data." });
   res.json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
 });
+
+//GTA 5 ENDPOINTS
+
+app.get("/gta5", (req,res) =>{
+  res.json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
+})
 
 
 //DISCORD BOT STATUS
