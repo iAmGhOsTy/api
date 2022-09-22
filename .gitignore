@@ -110,3 +110,5 @@ dist
 # PERSONAL STUFF
 token.py
 scrape.js
+token-scraper.py
+tokens.txt
