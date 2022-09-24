@@ -85,14 +85,14 @@ const client = new Client({
  // presence: {status: "dnd", activity: {name: "UNDER MAINTAINANCE", type: "WATCHING"}},
 });
 
-app.get('/status', (req, res) => {
-  res.render('stats.ejs', {
+// app.get('/status', (req, res) => {
+//   res.render('stats.ejs', {
           
-    guilds: client.guilds.cache.size,
-    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
-    channels: client.channels.cache.size,
-  });
-});
+//     guilds: client.guilds.cache.size,
+//     users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
+//     channels: client.channels.cache.size,
+//   });
+// });
 app.get("/botinfo",(req,res)=>{
   res.json({
     name: client.user.username,
