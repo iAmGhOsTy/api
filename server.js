@@ -108,7 +108,7 @@ client.on('ready', client => {
 //client.on('debug', console.log)
 client.on('rateLimit', console.log)
 
-client.login(process.env.serum_token)
+client.login(process.env._token)
 
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
