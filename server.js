@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
 
 // IMAGE ENDPOINTS
 
+// CAT, DOG, FOX ENDPOINTS
+
 app.get('/cat', (req, res) => {
   res.json({
     image: `${catarray[~~(Math.random() * catarray.length)]}`
@@ -42,6 +44,12 @@ app.get('/fox', (req, res) => {
     image: `${foxarray[~~(Math.random() * dogarray.length)]}`
   })
 });
+
+//GTA 5 ENDPOINTS
+
+app.get("/gta5", (req,res) =>{
+  res.json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
+})
 
 // TRUTH AND DARE ENDPOINTS
 
@@ -62,11 +70,7 @@ app.get("/nhie", (req, res) => {
   res.json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
 });
 
-//GTA 5 ENDPOINTS
 
-app.get("/gta5", (req,res) =>{
-  res.json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
-})
 
 
 //DISCORD BOT STATUS
