@@ -29,17 +29,17 @@ app.get('/', (req, res) => {
 
 // CAT, DOG, FOX ENDPOINTS
 
-app.get('/cat', (req, res) => {
+app.get('/image/cat', (req, res) => {
   res.json({
     image: `${catarray[~~(Math.random() * catarray.length)]}`
   })
 });
-app.get('/dog', (req, res) => {
+app.get('/image/dog', (req, res) => {
   res.json({
     image: `${dogarray[~~(Math.random() * dogarray.length)]}`
   })
 });
-app.get('/fox', (req, res) => {
+app.get('/image/fox', (req, res) => {
   res.json({
     image: `${foxarray[~~(Math.random() * dogarray.length)]}`
   })
@@ -47,23 +47,26 @@ app.get('/fox', (req, res) => {
 
 //GTA 5 ENDPOINTS
 
-app.get("/gta5", (req,res) =>{
+app.get("/image/gta5", (req,res) =>{
   res.json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
 })
 
 // TRUTH AND DARE ENDPOINTS
 
-app.get("/wyr", (req, res) => {
+app.get("/tod", (req, res) => {
+  res.json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/slight_nsfw" })
+});
+app.get("/tod/wyr", (req, res) => {
   res.json({ data: wyr[Math.floor(Math.random() * wyr.length)] })
 });
-app.get("/dare", (req, res) => {
+app.get("/tod/dare", (req, res) => {
   res.json({ data: dare[Math.floor(Math.random() * dare.length)] })
 });
-app.get("/truth", (req, res) => {
+app.get("/tod/truth", (req, res) => {
   res.json({ data: truth[Math.floor(Math.random() * truth.length)] })
   // res.status(400).json(`NOT FOUND🤏☠`)
 });
-app.get("/nhie", (req, res) => {
+app.get("/tod/nhie", (req, res) => {
   type = req.query.type || "normal";  // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
   let nhie1 = nhie.filter(o => o.type == type.toLowerCase())[0];
   if (!nhie1) return res.json({ data: "Can't find that type of data." });
@@ -112,7 +115,7 @@ client.on('ready', client => {
 //client.on('debug', console.log)
 client.on('rateLimit', console.log)
 
-client.login(process.env._token)
+//client.login(process.env._token)
 
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
