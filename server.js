@@ -7,10 +7,10 @@ app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
 
 //tnd data
-let wyr = require('./endpoints/tnd/wyr.json')
-let truth = require('./endpoints/tnd/truths.json');
-let dare = require('./endpoints/tnd/dares.json');
-let nhie = require('./endpoints/tnd/nhie.json');
+let wyr = require('./endpoints/tod/wyr.json')
+let truth = require('./endpoints/tod/truths.json');
+let dare = require('./endpoints/tod/dares.json');
+let nhie = require('./endpoints/tod/nhie.json');
 //image data
 let catarray = require('./endpoints/image/animal/cats.json')
 let dogarray = require('./endpoints/image/animal/dogs.json')
