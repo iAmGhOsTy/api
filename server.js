@@ -1,4 +1,5 @@
 const express = require("express");
+const Snoowrap = require('snoowrap');
 const app = express();
 const morgan = require("morgan");
 require('dotenv').config();
@@ -17,6 +18,14 @@ let dogarray = require('./endpoints/image/animal/dogs.json')
 let foxarray = require('./endpoints/image/animal/foxs.json')
 // GTA5 DATA  
 let gta5 = require("./endpoints/image/game/gta5/gta5.json")
+// MEME SCRAPER
+const reddit = new Snoowrap({
+  userAgent: 'MyMemeAPI/1.0.0',
+  clientId: 'Qk8YNKvreyLdRvOBL2O6Zw',
+  clientSecret: 'h4Ijl7xZ7YIUSSSEPa_j5d0smJxQuw',
+  username: 'AnonymousFerceLegend',
+  password: 'om1sabitagb'
+});
 
 
 app.set('view engine', 'ejs');
@@ -72,6 +81,32 @@ app.get("/tod/nhie", (req, res) => {
   if (!nhie1) return res.json({ data: "Can't find that type of data." });
   res.json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
 });
+
+// MEME ENDPOINTS
+
+app.get('/memes', async (req, res) => {
+  try {
+    // Fetch the top 10 memes from the 'memes' subreddit
+    const memes = await reddit.getSubreddit('memes').getRandomSubmission();
+
+    // Extract the relevant information from each meme
+    const memeData = {
+      id: memes.id,
+      title: memes.title,
+      url: memes.url,
+      subreddit: memes.subreddit.display_name,
+      upvotes: memes.ups
+    };
+
+    // Return the meme data as a JSON response
+    //console.log(memeData)
+    res.json({ memes: memeData });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching memes');
+  }
+});
+
 
 
 
