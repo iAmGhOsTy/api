@@ -113,19 +113,19 @@ app.get('/memes', async (req, res) => {
 
 //DISCORD BOT STATUS
 
-const { Client } = require("discord.js");
-const client = new Client({
-   shards: "auto",
+// const { Client } = require("discord.js");
+// const client = new Client({
+//    shards: "auto",
  
-  allowedMentions: {
-    parse: [ ],
-    repliedUser: false,
-  },
+//   allowedMentions: {
+//     parse: [ ],
+//     repliedUser: false,
+//   },
   
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
- intents: 1,
- // presence: {status: "dnd", activity: {name: "UNDER MAINTAINANCE", type: "WATCHING"}},
-});
+//   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+//  intents: 1,
+//  // presence: {status: "dnd", activity: {name: "UNDER MAINTAINANCE", type: "WATCHING"}},
+// });
 
 // app.get('/status', (req, res) => {
 //   res.render('stats.ejs', {
@@ -134,21 +134,21 @@ const client = new Client({
 //     users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
 //     channels: client.channels.cache.size,
 //   });
+ // });
+// app.get("/botinfo",(req,res)=>{
+//   res.json({
+//     name: client.user.username,
+//     servers: client.guilds.cache.size,
+//     users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
+//     channels: client.channels.cache.size,
+//   })
+// })
+// client.on('ready', client => {
+//  // client.user.setPresence({ activities: [{ name: 'UNDER MAINTAINANCE', type: "WATCHING" }] })
+// 	console.log(`Status Synced as: ${client.user.tag}!`);
 // });
-app.get("/botinfo",(req,res)=>{
-  res.json({
-    name: client.user.username,
-    servers: client.guilds.cache.size,
-    users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
-    channels: client.channels.cache.size,
-  })
-})
-client.on('ready', client => {
- // client.user.setPresence({ activities: [{ name: 'UNDER MAINTAINANCE', type: "WATCHING" }] })
-	console.log(`Status Synced as: ${client.user.tag}!`);
-});
-//client.on('debug', console.log)
-client.on('rateLimit', console.log)
+// //client.on('debug', console.log)
+// client.on('rateLimit', console.log)
 
 //client.login(process.env._token)
 
