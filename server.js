@@ -21,10 +21,10 @@ let gta5 = require("./endpoints/image/game/gta5/gta5.json")
 // MEME SCRAPER
 const reddit = new Snoowrap({
   userAgent: 'MyMemeAPI/1.0.0',
-  clientId: 'Qk8YNKvreyLdRvOBL2O6Zw',
-  clientSecret: 'h4Ijl7xZ7YIUSSSEPa_j5d0smJxQuw',
-  username: 'AnonymousFerceLegend',
-  password: 'om1sabitagb'
+  clientId: process.env.reddit_client_id,
+  clientSecret: process.env.reddit_client_secret,
+  username: process.env.reddit_username,
+  password: process.env.reddit_password
 });
 
 
@@ -86,7 +86,7 @@ app.get("/tod/nhie", (req, res) => {
 
 app.get('/memes', async (req, res) => {
   try {
-    // Fetch the top 10 memes from the 'memes' subreddit
+    // Fetch the memes from the 'memes' subreddit
     const memes = await reddit.getSubreddit('memes').getRandomSubmission();
 
     // Extract the relevant information from each meme
