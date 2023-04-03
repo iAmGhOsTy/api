@@ -2,6 +2,7 @@ const express = require("express");
 const Snoowrap = require('snoowrap');
 const app = express();
 const morgan = require("morgan");
+const { default: fetch } = require("node-fetch");
 require('dotenv').config();
 
 app.use(express.json());
@@ -107,50 +108,25 @@ app.get('/memes', async (req, res) => {
   }
 });
 
-
-
-
-
-//DISCORD BOT STATUS
-
-// const { Client } = require("discord.js");
-// const client = new Client({
-//    shards: "auto",
- 
-//   allowedMentions: {
-//     parse: [ ],
-//     repliedUser: false,
-//   },
-  
-//   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
-//  intents: 1,
-//  // presence: {status: "dnd", activity: {name: "UNDER MAINTAINANCE", type: "WATCHING"}},
-// });
-
-// app.get('/status', (req, res) => {
-//   res.render('stats.ejs', {
-          
-//     guilds: client.guilds.cache.size,
-//     users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
-//     channels: client.channels.cache.size,
-//   });
- // });
-// app.get("/botinfo",(req,res)=>{
-//   res.json({
-//     name: client.user.username,
-//     servers: client.guilds.cache.size,
-//     users: client.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
-//     channels: client.channels.cache.size,
-//   })
-// })
-// client.on('ready', client => {
-//  // client.user.setPresence({ activities: [{ name: 'UNDER MAINTAINANCE', type: "WATCHING" }] })
-// 	console.log(`Status Synced as: ${client.user.tag}!`);
-// });
-// //client.on('debug', console.log)
-// client.on('rateLimit', console.log)
-
-//client.login(process.env._token)
-
+app.get('/nsfw/images',(req,res)=>{
+  try{
+    query = req.query.query || "boobs"
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': process.env.XRapidAPIKey,
+        'X-RapidAPI-Host': process.env.XRapidAPIHost
+      }
+    };
+    
+    fetch(`https://porn-gallery.p.rapidapi.com/pornos/${query}`, options)
+      .then(response => response.json())
+      .then(response => res.json(response.results[0].images))
+      .catch(err => console.error(err))
+  }catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching nsfw images');
+  }
+})
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
