@@ -121,7 +121,8 @@ app.get('/nsfw/images',(req,res)=>{
     
     fetch(`https://porn-gallery.p.rapidapi.com/pornos/${query}`, options)
       .then(response => response.json())
-      .then(response => res.json(response.results[0].images))
+      .then(response => res.json(response.results[~~(Math.random() * response.results.length)]))
+      
       .catch(err => console.error(err))
   }catch (err) {
     console.error(err);
