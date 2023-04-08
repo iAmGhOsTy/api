@@ -1,12 +1,25 @@
+require('dotenv').config();
 const express = require("express");
 const Snoowrap = require('snoowrap');
 const app = express();
 const morgan = require("morgan");
+const mongoose = require('mongoose');
 const { default: fetch } = require("node-fetch");
-require('dotenv').config();
+
 
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
+
+//MONGO DB CONNECTION
+
+// mongoose.connect(process.env.mongoURL);
+
+// const counterSchema = new mongoose.Schema({
+//   count: { type: Number, default: 0 }
+// });
+
+// const Counter = mongoose.model('Counter', counterSchema);
+
 
 //tnd data
 let wyr = require('./endpoints/tod/wyr.json')
