@@ -3,8 +3,9 @@ const express = require("express");
 const Snoowrap = require('snoowrap');
 const app = express();
 const morgan = require("morgan");
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const { default: fetch } = require("node-fetch");
+//const { Configuration, OpenAIApi } = require("openai");
 
 
 app.use(express.json());
@@ -26,12 +27,15 @@ let wyr = require('./endpoints/tod/wyr.json')
 let truth = require('./endpoints/tod/truths.json');
 let dare = require('./endpoints/tod/dares.json');
 let nhie = require('./endpoints/tod/nhie.json');
+
 //image data
 let catarray = require('./endpoints/image/animal/cats.json')
 let dogarray = require('./endpoints/image/animal/dogs.json')
 let foxarray = require('./endpoints/image/animal/foxs.json')
+
 // GTA5 DATA  
 let gta5 = require("./endpoints/image/game/gta5/gta5.json")
+
 // MEME SCRAPER
 const reddit = new Snoowrap({
   userAgent: 'MyMemeAPI/1.0.0',
@@ -41,6 +45,11 @@ const reddit = new Snoowrap({
   password: process.env.reddit_password
 });
 
+// // OPEN AI
+// const configuration = new Configuration({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
+// const openai = new OpenAIApi(configuration);
 
 app.set('view engine', 'ejs');
 
@@ -121,6 +130,8 @@ app.get('/memes', async (req, res) => {
   }
 });
 
+// NSFW ENDPOINTS
+
 app.get('/nsfw/images',(req,res)=>{
   try{
     query = req.query.query || "boobs"
@@ -142,5 +153,24 @@ app.get('/nsfw/images',(req,res)=>{
     res.status(500).send('Error fetching nsfw images');
   }
 })
+
+// AI
+// app.post('/chatbot', async (req, res) => {
+//   const message = req.query.message;
+//   const openaiApiRequest = {
+//     engine: 'text-davinci-002',
+//     prompt: message,
+//     max_tokens: 150,
+//     temperature: 0.5,
+//     n: 1,
+//     stop: '\n',
+//   };
+//   const openaiApiResponse = await openai.createCompletion(openaiApiRequest);
+//   const response = openaiApiResponse.choices[0].text.trim();
+//   res.json({
+//     response: response
+//   });
+// })
+
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
