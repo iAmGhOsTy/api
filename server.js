@@ -3,23 +3,13 @@ const express = require("express");
 const Snoowrap = require('snoowrap');
 const app = express();
 const morgan = require("morgan");
-//const mongoose = require('mongoose');
 const { default: fetch } = require("node-fetch");
-//const { Configuration, OpenAIApi } = require("openai");
 
 
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
 
-//MONGO DB CONNECTION
 
-// mongoose.connect(process.env.mongoURL);
-
-// const counterSchema = new mongoose.Schema({
-//   count: { type: Number, default: 0 }
-// });
-
-// const Counter = mongoose.model('Counter', counterSchema);
 
 
 //tnd data
@@ -45,11 +35,6 @@ const reddit = new Snoowrap({
   password: process.env.reddit_password
 });
 
-// // OPEN AI
-// const configuration = new Configuration({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-// const openai = new OpenAIApi(configuration);
 
 app.set('view engine', 'ejs');
 
@@ -122,7 +107,7 @@ app.get('/memes', async (req, res) => {
     };
 
     // Return the meme data as a JSON response
-    //console.log(memeData)
+
     res.json({ memes: memeData });
   } catch (err) {
     console.error(err);
@@ -132,6 +117,8 @@ app.get('/memes', async (req, res) => {
 
 // NSFW ENDPOINTS
 
+
+// IMAGES
 app.get('/nsfw/images',(req,res)=>{
   try{
     query = req.query.query || "boobs"
@@ -154,23 +141,24 @@ app.get('/nsfw/images',(req,res)=>{
   }
 })
 
-// AI
-// app.post('/chatbot', async (req, res) => {
-//   const message = req.query.message;
-//   const openaiApiRequest = {
-//     engine: 'text-davinci-002',
-//     prompt: message,
-//     max_tokens: 150,
-//     temperature: 0.5,
-//     n: 1,
-//     stop: '\n',
-//   };
-//   const openaiApiResponse = await openai.createCompletion(openaiApiRequest);
-//   const response = openaiApiResponse.choices[0].text.trim();
-//   res.json({
-//     response: response
-//   });
-// })
+// VIDEOS
+app.get("/nsfw/videos",(req,res)=>{
+  try{
+    querry = req.query.query
+    const options2 = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': process.env.XRapidAPIKey,
+        'X-RapidAPI-Host': process.env.XRapidAPIHost_VIDEOS
+      }
+    };
+    fetch(`https://quality-porn.p.rapidapi.com/search?query=${querry}&page=1&timeout=5000`, options2)
+    .then(response => response.json())
+    .then(response=>res.json({data: response.data}))
+    .catch(err => console.error(err))
+  }catch(e){console.log(e)}
+})
+
 
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
