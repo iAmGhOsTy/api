@@ -2,13 +2,32 @@ require('dotenv').config();
 const express = require("express");
 const Snoowrap = require('snoowrap');
 const app = express();
+const {MongoClient} = require('mongodb');
 const morgan = require("morgan");
 const { default: fetch } = require("node-fetch");
 
 
+app.use(checkApiKey)
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
 
+
+// IMPORTANT FUNCTIONS
+
+async function checkApiKey (req, res, next) {
+  const apiKey = req.headers['x-api-key'];
+  const database = client.db("apikeys")
+  const authorizedKeys = await database.collection('keys').find().toArray();
+  const keys = authorizedKeys.map(keyObj => keyObj.key);
+  if (!apiKey|| !keys.includes(req.headers['x-api-key'])) {
+    return res.status(401).json({ error: 'Unauthorized, Please get a key from https://discord.gg/sb2TMUsJQH' });
+  }
+  next();
+};
+
+// DATABASE INTEGRATION
+
+const client = new MongoClient(process.env.uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 
