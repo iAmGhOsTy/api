@@ -145,7 +145,7 @@ app.get('/nsfw/images',(req,res)=>{
       method: 'GET',
       headers: {
         'X-RapidAPI-Key': process.env.XRapidAPIKey,
-        'X-RapidAPI-Host': process.env.XRapidAPIHost
+        'X-RapidAPI-Host': process.env.XRapidAPIHost_IMAGES
       }
     };
     
