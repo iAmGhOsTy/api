@@ -58,7 +58,7 @@ const reddit = new Snoowrap({
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('home');
+  res.status(400).render('home');
 });
 
 // IMAGE ENDPOINTS
@@ -66,17 +66,17 @@ app.get('/', (req, res) => {
 // CAT, DOG, FOX ENDPOINTS
 
 app.get('/image/cat', (req, res) => {
-  res.json({
+  res.status(200).json({
     image: `${catarray[~~(Math.random() * catarray.length)]}`
   })
 });
 app.get('/image/dog', (req, res) => {
-  res.json({
+  res.status(200).json({
     image: `${dogarray[~~(Math.random() * dogarray.length)]}`
   })
 });
 app.get('/image/fox', (req, res) => {
-  res.json({
+  res.status(200).json({
     image: `${foxarray[~~(Math.random() * dogarray.length)]}`
   })
 });
@@ -84,29 +84,29 @@ app.get('/image/fox', (req, res) => {
 //GTA 5 ENDPOINTS
 
 app.get("/image/gta5", (req,res) =>{
-  res.json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
+  res.status(200).json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
 })
 
 // TRUTH AND DARE ENDPOINTS
 
 app.get("/tod", (req, res) => {
-  res.json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/slight_nsfw" })
+  res.status(400).json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/slight_nsfw" })
 });
 app.get("/tod/wyr", (req, res) => {
-  res.json({ data: wyr[Math.floor(Math.random() * wyr.length)] })
+  res.status(200).json({ data: wyr[Math.floor(Math.random() * wyr.length)] })
 });
 app.get("/tod/dare", (req, res) => {
-  res.json({ data: dare[Math.floor(Math.random() * dare.length)] })
+  res.status(200).json({ data: dare[Math.floor(Math.random() * dare.length)] })
 });
 app.get("/tod/truth", (req, res) => {
-  res.json({ data: truth[Math.floor(Math.random() * truth.length)] })
+  res.status(200).json({ data: truth[Math.floor(Math.random() * truth.length)] })
   // res.status(400).json(`NOT FOUND🤏☠`)
 });
 app.get("/tod/nhie", (req, res) => {
   type = req.query.type || "normal";  // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
   let nhie1 = nhie.filter(o => o.type == type.toLowerCase())[0];
-  if (!nhie1) return res.json({ data: "Can't find that type of data." });
-  res.json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
+  if (!nhie1) return res.status(500).json({ data: "Can't find that type of data." });
+  res.status(200).json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
 });
 
 // MEME ENDPOINTS
@@ -127,7 +127,7 @@ app.get('/memes', async (req, res) => {
 
     // Return the meme data as a JSON response
 
-    res.json({ memes: memeData });
+    res.status(200).json({ memes: memeData })
   } catch (err) {
     console.error(err);
     res.status(500).send('Error fetching memes');
@@ -151,7 +151,7 @@ app.get('/nsfw/images',(req,res)=>{
     
     fetch(`https://porn-gallery.p.rapidapi.com/pornos/${query}`, options)
       .then(response => response.json())
-      .then(response => res.json(response.results[~~(Math.random() * response.results.length)]))
+      .then(response => res.status(200).json(response.results[~~(Math.random() * response.results.length)]))
       
       .catch(err => console.error(err))
   }catch (err) {
@@ -173,9 +173,11 @@ app.get("/nsfw/videos",(req,res)=>{
     };
     fetch(`https://quality-porn.p.rapidapi.com/search?query=${querry}&page=1&timeout=5000`, options2)
     .then(response => response.json())
-    .then(response=>res.json({data: response.data}))
+    .then(response=>res.status(200).json({data: response.data}))
     .catch(err => console.error(err))
-  }catch(e){console.log(e)}
+  }catch(e){
+    res.status(500).json("Error Finding")
+    console.log(e)}
 })
 
 
