@@ -198,6 +198,10 @@ app.get("/nsfw/videos",checkApiKey,(req,res)=>{
     console.log(e)}
 })
 
+// app.get('/test', (req,res)=>{
+//   res.status(200).render("hh.ejs")
+// })
+
 
 
 app.listen(process.env.port, () => console.log(`Listening in ${process.env.port}`));
