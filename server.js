@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const { default: fetch } = require("node-fetch");
 
 
-app.use(checkApiKey)
+//app.use(checkApiKey)
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
 
@@ -30,7 +30,9 @@ async function checkApiKey (req, res, next) {
 const client = new MongoClient(process.env.uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
+//facts data
 
+let facts = require('./endpoints/fact/facts.json')
 //tnd data
 let wyr = require('./endpoints/tod/wyr.json')
 let truth = require('./endpoints/tod/truths.json');
@@ -57,25 +59,28 @@ const reddit = new Snoowrap({
 
 app.set('view engine', 'ejs');
 
+
 app.get('/', (req, res) => {
-  res.status(400).render('home');
+   res.status(400).render("home.ejs"
+  //   data: "Welcome to my api join the discord server to get your api key."
+  )
 });
 
 // IMAGE ENDPOINTS
 
 // CAT, DOG, FOX ENDPOINTS
 
-app.get('/image/cat', (req, res) => {
+app.get('/image/cat',checkApiKey, (req, res) => {
   res.status(200).json({
     image: `${catarray[~~(Math.random() * catarray.length)]}`
   })
 });
-app.get('/image/dog', (req, res) => {
+app.get('/image/dog',checkApiKey, (req, res) => {
   res.status(200).json({
     image: `${dogarray[~~(Math.random() * dogarray.length)]}`
   })
 });
-app.get('/image/fox', (req, res) => {
+app.get('/image/fox',checkApiKey, (req, res) => {
   res.status(200).json({
     image: `${foxarray[~~(Math.random() * dogarray.length)]}`
   })
@@ -83,26 +88,26 @@ app.get('/image/fox', (req, res) => {
 
 //GTA 5 ENDPOINTS
 
-app.get("/image/gta5", (req,res) =>{
+app.get("/image/gta5",checkApiKey, (req,res) =>{
   res.status(200).json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
 })
 
 // TRUTH AND DARE ENDPOINTS
 
-app.get("/tod", (req, res) => {
+app.get("/tod",checkApiKey, (req, res) => {
   res.status(400).json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/slight_nsfw" })
 });
-app.get("/tod/wyr", (req, res) => {
+app.get("/tod/wyr",checkApiKey, (req, res) => {
   res.status(200).json({ data: wyr[Math.floor(Math.random() * wyr.length)] })
 });
-app.get("/tod/dare", (req, res) => {
+app.get("/tod/dare",checkApiKey, (req, res) => {
   res.status(200).json({ data: dare[Math.floor(Math.random() * dare.length)] })
 });
-app.get("/tod/truth", (req, res) => {
+app.get("/tod/truth",checkApiKey, (req, res) => {
   res.status(200).json({ data: truth[Math.floor(Math.random() * truth.length)] })
   // res.status(400).json(`NOT FOUND🤏☠`)
 });
-app.get("/tod/nhie", (req, res) => {
+app.get("/tod/nhie",checkApiKey, (req, res) => {
   type = req.query.type || "normal";  // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
   let nhie1 = nhie.filter(o => o.type == type.toLowerCase())[0];
   if (!nhie1) return res.status(500).json({ data: "Can't find that type of data." });
@@ -111,7 +116,7 @@ app.get("/tod/nhie", (req, res) => {
 
 // MEME ENDPOINTS
 
-app.get('/memes', async (req, res) => {
+app.get('/memes',checkApiKey, async (req, res) => {
   try {
     // Fetch the memes from the 'memes' subreddit
     const memes = await reddit.getSubreddit('memes').getRandomSubmission();
@@ -134,11 +139,24 @@ app.get('/memes', async (req, res) => {
   }
 });
 
+// FACT ENDPOINT
+
+app.get('/fact',checkApiKey,async(req,res)=>{
+
+  try{
+    res.status(200).json({fact: facts[Math.floor(Math.random()* facts.length)]})
+
+
+  }catch(e){console.log(e)}
+
+})
+
+
 // NSFW ENDPOINTS
 
 
 // IMAGES
-app.get('/nsfw/images',(req,res)=>{
+app.get('/nsfw/images', checkApiKey, (req,res)=>{
   try{
     query = req.query.query || "boobs"
     const options = {
@@ -161,7 +179,7 @@ app.get('/nsfw/images',(req,res)=>{
 })
 
 // VIDEOS
-app.get("/nsfw/videos",(req,res)=>{
+app.get("/nsfw/videos",checkApiKey,(req,res)=>{
   try{
     querry = req.query.query
     const options2 = {
