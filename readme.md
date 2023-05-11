@@ -17,7 +17,7 @@ Api made for private use.
 1. truth
 2. dare
 3. wyr
-4. nhie , type= nsfw,slight_nsfw, normal
+4. nhie , type= nsfw,pg13, normal
 
 ### BOT
 servers

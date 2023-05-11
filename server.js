@@ -95,7 +95,7 @@ app.get("/image/gta5",checkApiKey, (req,res) =>{
 // TRUTH AND DARE ENDPOINTS
 
 app.get("/tod",checkApiKey, (req, res) => {
-  res.status(400).json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/slight_nsfw" })
+  res.status(400).json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/pg13" })
 });
 app.get("/tod/wyr",checkApiKey, (req, res) => {
   res.status(200).json({ data: wyr[Math.floor(Math.random() * wyr.length)] })
@@ -108,7 +108,7 @@ app.get("/tod/truth",checkApiKey, (req, res) => {
   // res.status(400).json(`NOT FOUND🤏☠`)
 });
 app.get("/tod/nhie",checkApiKey, (req, res) => {
-  type = req.query.type || "normal";  // settings type (NSFW, NORMAL, SLIGHT_NSFW) else normal
+  type = req.query.type || "normal";  // settings type (NSFW, NORMAL, pg13) else normal
   let nhie1 = nhie.filter(o => o.type == type.toLowerCase())[0];
   if (!nhie1) return res.status(500).json({ data: "Can't find that type of data." });
   res.status(200).json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
