@@ -1,202 +1,80 @@
 require('dotenv').config();
-const express = require("express");
-const Snoowrap = require('snoowrap');
-const app = express();
-const {MongoClient} = require('mongodb');
 const morgan = require("morgan");
-const { default: fetch } = require("node-fetch");
+const express = require('express');
+const app = express();
+const authMiddleware = require('./authMiddleware')
 
 
-//app.use(checkApiKey)
+//app.use)
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
-
-
-// IMPORTANT FUNCTIONS
-
-async function checkApiKey (req, res, next) {
-  const apiKey = req.headers['x-api-key'];
-  const database = client.db("apikeys")
-  const authorizedKeys = await database.collection('keys').find().toArray();
-  const keys = authorizedKeys.map(keyObj => keyObj.key);
-  if (!apiKey|| !keys.includes(req.headers['x-api-key'])) {
-    return res.status(401).json({ error: 'Unauthorized, Please get a key from https://discord.gg/sb2TMUsJQH' });
-  }
-  next();
-};
-
-// DATABASE INTEGRATION
-
-const client = new MongoClient(process.env.uri, { useNewUrlParser: true, useUnifiedTopology: true })
-
-
-//facts data
-
-let facts = require('./endpoints/fact/facts.json')
-//tnd data
-let wyr = require('./endpoints/tod/wyr.json')
-let truth = require('./endpoints/tod/truths.json');
-let dare = require('./endpoints/tod/dares.json');
-let nhie = require('./endpoints/tod/nhie.json');
-
-//image data
-let catarray = require('./endpoints/image/animal/cats.json')
-let dogarray = require('./endpoints/image/animal/dogs.json')
-let foxarray = require('./endpoints/image/animal/foxs.json')
-
-// GTA5 DATA  
-let gta5 = require("./endpoints/image/game/gta5/gta5.json")
-
-// MEME SCRAPER
-const reddit = new Snoowrap({
-  userAgent: 'MyMemeAPI/1.0.0',
-  clientId: process.env.reddit_client_id,
-  clientSecret: process.env.reddit_client_secret,
-  username: process.env.reddit_username,
-  password: process.env.reddit_password
-});
-
-
 app.set('view engine', 'ejs');
 
 
+// Import route files
+const catRoutes = require('./routes/imageRoutes/catRoute.js');
+const dogRoutes = require('./routes/imageRoutes/dogRoute.js');
+const foxRoutes = require('./routes/imageRoutes/foxRoute.js');
+const gta5Routes = require('./routes/imageRoutes/gta5Route.js');
+const truthRoutes = require('./routes/todRoutes/truthRoute.js');
+const dareRoutes = require('./routes/todRoutes/dareRoute.js');
+const wyrRoutes = require('./routes/todRoutes/wyrRoute.js');
+const nhieRoutes = require('./routes/todRoutes/nhieRoute.js');
+const memeRoutes = require('./routes/memeRoute.js');
+const factRoutes = require('./routes/factRoute.js');
+const nsfwImagesRoutes = require('./routes/nsfwRoutes/imageRoute.js');
+const nsfwVideosRoutes = require('./routes/nsfwRoutes/videoRoute.js');
+const weatherRoutes = require("./routes/weatherRoute.js");
+
 app.get('/', (req, res) => {
    res.status(400).render("home.ejs"
-  //   data: "Welcome to my api join the discord server to get your api key."
+  //   data: "Welcome to my api join the discord server to use your api key."
   )
 });
 
-// IMAGE ENDPOINTS
 
 // CAT, DOG, FOX ENDPOINTS
 
-app.get('/image/cat',checkApiKey, (req, res) => {
-  res.status(200).json({
-    image: `${catarray[~~(Math.random() * catarray.length)]}`
-  })
-});
-app.get('/image/dog',checkApiKey, (req, res) => {
-  res.status(200).json({
-    image: `${dogarray[~~(Math.random() * dogarray.length)]}`
-  })
-});
-app.get('/image/fox',checkApiKey, (req, res) => {
-  res.status(200).json({
-    image: `${foxarray[~~(Math.random() * dogarray.length)]}`
-  })
-});
+app.use('/image/cat',catRoutes)
+app.use('/image/dog', dogRoutes);
+app.use('/image/fox', foxRoutes);
 
 //GTA 5 ENDPOINTS
 
-app.get("/image/gta5",checkApiKey, (req,res) =>{
-  res.status(200).json({ data: gta5[Math.floor(Math.random()* gta5.length)]})
-})
+app.use("/image/gta5", gta5Routes);
 
 // TRUTH AND DARE ENDPOINTS
 
-app.get("/tod",checkApiKey, (req, res) => {
+app.use("/tod", (req, res) => {
   res.status(400).json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/pg13" })
 });
-app.get("/tod/wyr",checkApiKey, (req, res) => {
-  res.status(200).json({ data: wyr[Math.floor(Math.random() * wyr.length)] })
-});
-app.get("/tod/dare",checkApiKey, (req, res) => {
-  res.status(200).json({ data: dare[Math.floor(Math.random() * dare.length)] })
-});
-app.get("/tod/truth",checkApiKey, (req, res) => {
-  res.status(200).json({ data: truth[Math.floor(Math.random() * truth.length)] })
-  // res.status(400).json(`NOT FOUND🤏☠`)
-});
-app.get("/tod/nhie",checkApiKey, (req, res) => {
-  type = req.query.type || "normal";  // settings type (NSFW, NORMAL, pg13) else normal
-  let nhie1 = nhie.filter(o => o.type == type.toLowerCase())[0];
-  if (!nhie1) return res.status(500).json({ data: "Can't find that type of data." });
-  res.status(200).json({ data: nhie1.item[Math.floor(Math.random() * nhie1.item.length)], type: nhie1.type })
-});
+app.use("/tod/wyr", wyrRoutes);
+app.use("/tod/dare", dareRoutes);
+app.use("/tod/truth", truthRoutes);
+app.use("/tod/nhie", nhieRoutes);
 
 // MEME ENDPOINTS
 
-app.get('/memes',checkApiKey, async (req, res) => {
-  try {
-    // Fetch the memes from the 'memes' subreddit
-    const memes = await reddit.getSubreddit('memes').getRandomSubmission();
-
-    // Extract the relevant information from each meme
-    const memeData = {
-      id: memes.id,
-      title: memes.title,
-      url: memes.url,
-      subreddit: memes.subreddit.display_name,
-      upvotes: memes.ups
-    };
-
-    // Return the meme data as a JSON response
-
-    res.status(200).json({ memes: memeData })
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Error fetching memes');
-  }
-});
+app.use('/memes', memeRoutes);
 
 // FACT ENDPOINT
 
-app.get('/fact',checkApiKey,async(req,res)=>{
-
-  try{
-    res.status(200).json({fact: facts[Math.floor(Math.random()* facts.length)]})
-
-
-  }catch(e){console.log(e)}
-
-})
+app.use('/fact', factRoutes);
 
 
 // NSFW ENDPOINTS
 
 
 // IMAGES
-app.get('/nsfw/images', checkApiKey, (req,res)=>{
-  try{
-    query = req.query.query || "boobs"
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': process.env.XRapidAPIKey,
-        'X-RapidAPI-Host': process.env.XRapidAPIHost_IMAGES
-      }
-    };
-    
-    fetch(`https://porn-gallery.p.rapidapi.com/pornos/${query}`, options)
-      .then(response => response.json())
-      .then(response => res.status(200).json(response.results[~~(Math.random() * response.results.length)]))
-      
-      .catch(err => console.error(err))
-  }catch (err) {
-    console.error(err);
-    res.status(500).send('Error fetching nsfw images');
-  }
-})
+app.use('/nsfw/images', authMiddleware, nsfwImagesRoutes)
 
 // VIDEOS
-app.get("/nsfw/videos",checkApiKey,(req,res)=>{
-  try{
-    querry = req.query.query
-    const options2 = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': process.env.XRapidAPIKey,
-        'X-RapidAPI-Host': process.env.XRapidAPIHost_VIDEOS
-      }
-    };
-    fetch(`https://quality-porn.p.rapidapi.com/search?query=${querry}&page=1&timeout=5000`, options2)
-    .then(response => response.json())
-    .then(response=>res.status(200).json({data: response.data}))
-    .catch(err => console.error(err))
-  }catch(e){
-    res.status(500).json("Error Finding")
-    console.log(e)}
-})
+app.use("/nsfw/videos",authMiddleware,nsfwVideosRoutes)
+
+
+// WEATHER ENDPOINT
+app.use("/weather",authMiddleware, weatherRoutes);
+
 
 // app.get('/test', (req,res)=>{
 //   res.status(200).render("hh.ejs")
