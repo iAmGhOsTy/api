@@ -7,7 +7,7 @@ require("dotenv").config()
 
 router.get("/", async (req, res) => {
     try {
-        querry = req.query.location
+        querry = req.query.city
         const data = await fetch(`https://api.weatherapi.com/v1/current.json?key=${process.env.weather_api_key}&q=${querry}`)
             .catch(err => console.error(err))
 
