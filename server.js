@@ -2,7 +2,7 @@ require('dotenv').config();
 const morgan = require("morgan");
 const express = require('express');
 const app = express();
-const authMiddleware = require('./authMiddleware')
+const authMiddleware = require('./middleware/authMiddleware')
 
 
 //app.use)
@@ -25,7 +25,10 @@ const factRoutes = require('./routes/factRoute.js');
 const nsfwImagesRoutes = require('./routes/nsfwRoutes/imageRoute.js');
 const nsfwVideosRoutes = require('./routes/nsfwRoutes/videoRoute.js');
 const weatherRoutes = require("./routes/weatherRoute.js");
+const translationRoutes = require("./routes/translationRoute.js");
 
+
+// HOME PAGE
 app.get('/', (req, res) => {
    res.status(202).render("home.ejs"
   //   data: "Welcome to my api join the discord server to use your api key."
@@ -53,17 +56,15 @@ app.use("/tod/dare", dareRoutes);
 app.use("/tod/truth", truthRoutes);
 app.use("/tod/nhie", nhieRoutes);
 
-// MEME ENDPOINTS
 
+// MEME ENDPOINTS
 app.use('/memes', memeRoutes);
 
 // FACT ENDPOINT
-
 app.use('/fact', factRoutes);
 
 
 // NSFW ENDPOINTS
-
 
 // IMAGES
 app.use('/nsfw/images', authMiddleware, nsfwImagesRoutes)
@@ -74,6 +75,11 @@ app.use("/nsfw/videos",authMiddleware,nsfwVideosRoutes)
 
 // WEATHER ENDPOINT
 app.use("/weather",authMiddleware, weatherRoutes);
+
+
+// TRANSLATION ENDPOINT
+app.use("/translate", translationRoutes)
+
 
 
 // app.get('/test', (req,res)=>{
