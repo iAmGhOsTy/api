@@ -8,6 +8,7 @@ require("dotenv").config()
 router.get("/", async (req, res) => {
     try {
         querry = req.query.city
+        if(!querry) return res.status(400).json({ data: "Please provide a city name" })
         const data = await fetch(`https://api.weatherapi.com/v1/current.json?key=${process.env.weather_api_key}&q=${querry}`)
             .catch(err => console.error(err))
 
@@ -32,7 +33,7 @@ router.get("/", async (req, res) => {
             feelslike_f: weather.current.feelslike_f,
         };
 
-        console.log(weatherdata)
+        
         res.status(200).json({ data: weatherdata })
     } catch (err) {
         console.error(err);

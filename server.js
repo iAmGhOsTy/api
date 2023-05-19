@@ -45,8 +45,8 @@ app.use("/image/gta5", gta5Routes);
 
 // TRUTH AND DARE ENDPOINTS
 
-app.use("/tod", (req, res) => {
-  res.status(400).json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=msfw/normal/pg13" })
+app.get("/tod", (req, res) => {
+  res.status(400).json({ data: "use tod/truth or tod/dare or tod/wyr or tod/nhie?types=nsfw/normal/pg13" })
 });
 app.use("/tod/wyr", wyrRoutes);
 app.use("/tod/dare", dareRoutes);
