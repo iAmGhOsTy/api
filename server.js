@@ -7,7 +7,7 @@ const authMiddleware = require('./authMiddleware')
 
 //app.use)
 app.use(express.json());
-app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent"'));
+app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent" ":req[header]"'));
 app.set('view engine', 'ejs');
 
 
@@ -27,7 +27,7 @@ const nsfwVideosRoutes = require('./routes/nsfwRoutes/videoRoute.js');
 const weatherRoutes = require("./routes/weatherRoute.js");
 
 app.get('/', (req, res) => {
-   res.status(400).render("home.ejs"
+   res.status(202).render("home.ejs"
   //   data: "Welcome to my api join the discord server to use your api key."
   )
 });
