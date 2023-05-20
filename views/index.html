@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./public/style.css">
+    <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/82384593?v=4">
+    <title>GhOsTy-API</title>
+</head>
+<body>
+  <h1 id="title">WELCOME</h1>
+  <p id="description">This API provides you with the best options possible for free, YES FREE!</p>
+  <div class="blocks">
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449313463054448/dare.PNG" alt="Photo">
+      <p class="contents">/tod/dare This endpoint gives you some of the most enjoyable dares.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449316063531139/truth.PNG" alt="Photo">
+      <p class="contents">/tod/truth This endpoint gives asks you some REAL question so be truthful and answer.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449314717159465/nhie.PNG" alt="Photo">
+      <p class="contents">/tod/nhie?types=normal/pg13/nsfw This endpoint gives you many never have I ever questions with 3 levels of adultness.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449319494455296/wyr.PNG" alt="Photo">
+      <p class="contents">/tod/wyr This endpoint provides you many would you rather questions.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449314041868430/image.PNG" alt="Photo">
+      <p class="contents">/image/cat,/dog,/fox this /image endpoint gives you the links for many cute photos of animals(/cat,/dog,/fox)</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449314410958878/meme.PNG" alt="Photo">
+      <p class="contents">/memes As the name suggests, this endpoint gives you many funny memes.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449316348735551/weather.PNG" alt="Photo">
+      <p class="contents">/weather?city=xyz This endpoint gives you every information about the weather of the place.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449315056881735/nsfw_image.png" alt="Photo">
+      <p class="contents">WELL, /nsfw/images?query=xyz gives you NSFW images related to the query.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449315409219645/nsfw_videos.png" alt="Photo">
+      <p class="contents">SO /nsfw/videos?query=xyz gives you videos related to the query...</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449313781813379/fact.PNG" alt="Photo">
+      <p class="contents">/fact endpoint gives you a fact.</p>
+    </div><!-- /.block-item -->
+    <div class="block-item">
+      <img src="https://cdn.discordapp.com/attachments/911685816328269897/1109449315652472962/translation.PNG" alt="Photo">
+      <p class="contents">/translate?text=abc&source=xy&target=ef endpoint gives you the translation of the text </p>
+    </div><!-- /.block-item -->
+  </div><!-- /.blocks -->
+  <p><span style="color:#5B8FB9;"><span style="font-size:24px;">As you know the API is free but NSFW nedpoints need an API-KEY.</span></span></p>
+<p><span style="color:#5B8FB9;"><span style="font-size:24px;"><a href="https://discord.gg/sb2TMUsJQH">Click Here To Get Your Key</a></span></span></p>
+</body>
+<style>
+/* GENERAL LAYOUT */
+:root {
+    font-size: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Open Sans, Segoe UI, Apple SD Gothic Neo, Lucida Grande, Lucida Sans Unicode, sans‑serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #03001C;
+  margin: 3vh 5vw 5vh;
+}
+
+h1, p {
+  text-align: center;
+}
+
+img {
+  width: 100%;
+}
+
+/* MAIN PAGE - LAYOUT */
+h1#title {
+  font-size: 48px;
+  color: #B6EADA;
+}
+
+p#description {
+  font-size: 20px;
+  margin: 10px 10% 40px;
+  color: #5B8FB9;
+}
+
+.blocks {
+  column-count: 5;
+}
+
+.block-item {
+  /* Use break-inside: avoid on the element within a multi-column layout to keep the content from breaking apart. To see the real effect of this, try to comment or remove this code.*/
+  break-inside: avoid;
+  background: #5B8FB9;
+  margin-bottom: 20px;
+  transform: scale(1);
+  transition: transform .5s;
+}
+
+.block-item:hover {
+  transform: scale(1.05);
+}
+
+.contents {
+  text-align: left;
+  padding: 20px 20px 30px;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1366px) {
+  .blocks {
+    column-count: 4;
+  }
+}
+
+@media (max-width: 1024px) {
+  .blocks {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+      font-size: 14px;
+  }
+  h1#title {
+    font-size: 35px;
+  }
+  p#description {
+    font-size: 16px;
+    margin: 10px 15px 30px;
+    text-align: justify;
+  }
+  .blocks {
+    column-count: 2;
+  }
+  .block-item,
+  .block-item:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .blocks {
+    column-count: 1;
+  }
+}
+    
+</style>
+</html>
