@@ -26,12 +26,14 @@ const nsfwImagesRoutes = require('./routes/nsfwRoutes/imageRoute.js');
 const nsfwVideosRoutes = require('./routes/nsfwRoutes/videoRoute.js');
 const weatherRoutes = require("./routes/weatherRoute.js");
 const translationRoutes = require("./routes/translationRoute.js");
+const urbandictionaryRoutes = require("./routes/urbandictionaryRoute.js");
 //const clownRoutes = require("./routes/clownRoute.js");
 
 
 // HOME PAGE
 app.get('/', (req, res) => {
-   res.status(202).sendFile("index.html",{root:__dirname+"/views"}
+   res.status(202).render("index.ejs",
+    //"index.html",{root:__dirname+"/views"}
   //   data: "Welcome to my api join the discord server to use your api key."
   )
 });
@@ -80,6 +82,10 @@ app.use("/weather",authMiddleware, weatherRoutes);
 
 // TRANSLATION ENDPOINT
 app.use("/translate", translationRoutes)
+
+
+// URBAN DICTIONARY ENDPOINT
+app.use("/urbandictionary", urbandictionaryRoutes);
 
 // CLOWN ENDPOINT
 //app.use("/clown", clownRoutes);
