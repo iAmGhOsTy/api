@@ -26,11 +26,12 @@ const nsfwImagesRoutes = require('./routes/nsfwRoutes/imageRoute.js');
 const nsfwVideosRoutes = require('./routes/nsfwRoutes/videoRoute.js');
 const weatherRoutes = require("./routes/weatherRoute.js");
 const translationRoutes = require("./routes/translationRoute.js");
+//const clownRoutes = require("./routes/clownRoute.js");
 
 
 // HOME PAGE
 app.get('/', (req, res) => {
-   res.status(202).render("home.ejs"
+   res.status(202).sendFile("index.html",{root:__dirname+"/views"}
   //   data: "Welcome to my api join the discord server to use your api key."
   )
 });
@@ -79,6 +80,9 @@ app.use("/weather",authMiddleware, weatherRoutes);
 
 // TRANSLATION ENDPOINT
 app.use("/translate", translationRoutes)
+
+// CLOWN ENDPOINT
+//app.use("/clown", clownRoutes);
 
 
 
