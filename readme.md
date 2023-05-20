@@ -32,4 +32,10 @@ Api made for private use.
 ### weather/
 1. weather?location=
 
+### translate/
+1. translate?text=xyz&source=dfg&target=abc
+
+### urbandictionary/
+1. urbandictionary?word=
+
 
