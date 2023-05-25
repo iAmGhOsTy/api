@@ -26,6 +26,7 @@ const nsfwVideosRoutes = require('./routes/nsfwRoutes/videoRoute.js');
 const weatherRoutes = require("./routes/weatherRoute.js");
 const translationRoutes = require("./routes/translationRoute.js");
 const urbandictionaryRoutes = require("./routes/urbandictionaryRoute.js");
+const randomsentenceRoutes = require("./routes/rancomsentenceRoute.js");
 //const clownRoutes = require("./routes/clownRoute.js");
 
 
@@ -86,6 +87,8 @@ app.use("/translate", translationRoutes)
 // URBAN DICTIONARY ENDPOINT
 app.use("/urbandictionary", urbandictionaryRoutes);
 
+// RANDOM SENTENCE ENDPOINT
+app.use("/randomsentence", randomsentenceRoutes);
 // CLOWN ENDPOINT
 //app.use("/clown", clownRoutes);
 
