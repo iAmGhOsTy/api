@@ -10,16 +10,17 @@ router.get("/", async (req, res) => {
         querry = req.query.city
         if(!querry) return res.status(400).json({ data: "Please provide a city name" })
         const data = await fetch(`https://api.weatherapi.com/v1/current.json?key=${process.env.weather_api_key}&q=${querry}`)
-            .catch(err => console.error(err))
+            .catch(err => console.error(err))//.then(res.status(500).send('Error fetching weather'))
+
 
         const weather = await data.json()
-
-
+        if (weather.error) return res.status(400).json({ data: "Please provide a valid city name" })
+        else{
         const weatherdata = {
             location: weather.location.name,
             country: weather.location.country,
-            temprature_c: weather.current.temp_c,
-            temprature_f: weather.current.temp_f,
+            temperature_c: weather.current.temp_c,
+            temperature_f: weather.current.temp_f,
             image: weather.current.condition.icon,
             wind_kmph: weather.current.wind_kph,
             wind_mph: weather.current.wind_mph,
@@ -35,6 +36,7 @@ router.get("/", async (req, res) => {
 
         
         res.status(200).json({ data: weatherdata })
+    }
     } catch (err) {
         console.error(err);
         res.status(500).send('Error fetching weather');
