@@ -64,7 +64,7 @@ app.use("/tod/nhie", nhieRoutes);
 app.use('/memes', memeRoutes);
 
 // FACT ENDPOINT
-app.use('/fact', factRoutes);
+app.use('/facts', factRoutes);
 
 
 // NSFW ENDPOINTS
