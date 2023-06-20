@@ -127,7 +127,7 @@ app.use("/randomsentence", randomsentenceRoutes);
 
 // HENTAI ENDPOINTS
 app.get("/hentai", (req, res) => {
-  req.status(400).json({
+  res.status(400).json({
     data:"refer to the documentation for the endpoints"
   })
 })
