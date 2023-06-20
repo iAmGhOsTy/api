@@ -14,18 +14,49 @@ app.set('view engine', 'ejs');
 const catRoutes = require('./routes/imageRoutes/catRoute.js');
 const dogRoutes = require('./routes/imageRoutes/dogRoute.js');
 const foxRoutes = require('./routes/imageRoutes/foxRoute.js');
+
 const gta5Routes = require('./routes/imageRoutes/gta5Route.js');
+
 const truthRoutes = require('./routes/todRoutes/truthRoute.js');
 const dareRoutes = require('./routes/todRoutes/dareRoute.js');
 const wyrRoutes = require('./routes/todRoutes/wyrRoute.js');
 const nhieRoutes = require('./routes/todRoutes/nhieRoute.js');
+
 const memeRoutes = require('./routes/memeRoute.js');
+
 const factRoutes = require('./routes/factRoute.js');
+
 const nsfwImagesRoutes = require('./routes/nsfwRoutes/imageRoute.js');
 const nsfwVideosRoutes = require('./routes/nsfwRoutes/videoRoute.js');
+
+const ahegaoRoute = require("./routes/hentaiRoutes/ahegaoRoute.js");
+const assRoute = require("./routes/hentaiRoutes/assRoute.js");
+const bdsmRoute = require("./routes/hentaiRoutes/bdsmRoute.js");
+const blowjobRoute = require("./routes/hentaiRoutes/blowjobRoute.js");
+const cumRoute = require("./routes/hentaiRoutes/cumRoute.js");
+const cuckoldRoute = require("./routes/hentaiRoutes/cuckoldRoute.js");
+const eroticRoute = require("./routes/hentaiRoutes/eroticRoute.js");
+const feetRoute = require("./routes/hentaiRoutes/feetRoute.js");
+const femdomRoute = require("./routes/hentaiRoutes/femdomRoute.js");
+const gangbangRoute = require("./routes/hentaiRoutes/gangbangRoute.js");
+const hentaiRoute = require("./routes/hentaiRoutes/hentaiRoute.js");
+const mangaRoute = require("./routes/hentaiRoutes/mangaRoute.js");
+const masturbationRoute = require("./routes/hentaiRoutes/masturbationRoute.js");
+const nekoRoute = require("./routes/hentaiRoutes/nekoRoute.js");
+const nerdyRoute = require("./routes/hentaiRoutes/nerdyRoute.js");
+const orgyRoute = require("./routes/hentaiRoutes/orgyRoute.js"); 
+const pantiesRoute = require("./routes/hentaiRoutes/pantiesRoute.js");
+const pussyRoute = require("./routes/hentaiRoutes/pussyRoute.js");
+const tentaclesRoute = require("./routes/hentaiRoutes/tentaclesRoute.js");
+const thighsRoute = require("./routes/hentaiRoutes/thighsRoute.js");
+const yuriRoute = require("./routes/hentaiRoutes/yuriRoute.js");
+
 const weatherRoutes = require("./routes/weatherRoute.js");
+
 const translationRoutes = require("./routes/translationRoute.js");
-const urbandictionaryRoutes = require("./routes/urbandictionaryRoute.js");
+
+const urbandictionaryRoutes = require("./routes/urbandictionaryRoute.js")
+;
 const randomsentenceRoutes = require("./routes/rancomsentenceRoute.js");
 //const clownRoutes = require("./routes/clownRoute.js");
 
@@ -89,6 +120,32 @@ app.use("/urbandictionary", urbandictionaryRoutes);
 
 // RANDOM SENTENCE ENDPOINT
 app.use("/randomsentence", randomsentenceRoutes);
+
+// HENTAI ENDPOINTS
+app.use("/hentai/ahegao", ahegaoRoute,authMiddleware);
+app.use("/hentai/ass", assRoute,authMiddleware)
+app.use("/hentai/bdsm",bdsmRoute,authMiddleware)
+app.use("/hentai/blowjob",blowjobRoute,authMiddleware)
+app.use("/hentai/cuckold",cuckoldRoute,authMiddleware)
+app.use("/hentai/cum",cumRoute,authMiddleware)
+app.use("/hentai/erotic",eroticRoute,authMiddleware)
+app.use("/hentai/feet",feetRoute,authMiddleware)
+app.use("/hentai/femdom",femdomRoute,authMiddleware)
+app.use("/hentai/gangbang",gangbangRoute,authMiddleware)
+app.use("/hentai/hentai",hentaiRoute,authMiddleware)
+app.use("/hentai/manga",mangaRoute,authMiddleware)
+app.use("/hentai/masturbation",masturbationRoute,authMiddleware)
+app.use("/hentai/neko",nekoRoute,authMiddleware)
+app.use("/hentai/nerdy",nerdyRoute,authMiddleware)
+app.use("/hentai/orgy",orgyRoute,authMiddleware)
+app.use("/hentai/panties",pantiesRoute,authMiddleware)
+app.use("/hentai/pussy",pussyRoute,authMiddleware)
+app.use("/hentai/tentacles",tentaclesRoute,authMiddleware)
+app.use("/hentai/thighs",thighsRoute,authMiddleware)
+app.use("/hentai/yuri",yuriRoute,authMiddleware)
+
+
+
 // CLOWN ENDPOINT
 //app.use("/clown", clownRoutes);
 
