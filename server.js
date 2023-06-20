@@ -99,7 +99,11 @@ app.use('/facts', factRoutes);
 
 
 // NSFW ENDPOINTS
-
+app.get("/nsfw", (req, res) => {
+  res.status(400).json({
+    data:"refer to the documentation for the endpoints"
+  })
+})
 // IMAGES
 app.use('/nsfw/images', authMiddleware, nsfwImagesRoutes)
 
@@ -122,6 +126,11 @@ app.use("/urbandictionary", urbandictionaryRoutes);
 app.use("/randomsentence", randomsentenceRoutes);
 
 // HENTAI ENDPOINTS
+app,get("/hentai", (req, res) => {
+  req.status(400).json({
+    data:"refer to the documentation for the endpoints"
+  })
+})
 app.use("/hentai/ahegao", ahegaoRoute,authMiddleware);
 app.use("/hentai/ass", assRoute,authMiddleware)
 app.use("/hentai/bdsm",bdsmRoute,authMiddleware)
