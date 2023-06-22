@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const {default: fetch} = require('node-fetch');
 // const Snoowrap = require('snoowrap');
 
 // const reddit = new Snoowrap({
@@ -13,16 +14,20 @@ const router = express.Router();
 
 router.get("/", async (req, res) => { 
     try {
+      const data = await fetch(`https://meme-api.com/gimme`)
+      const memes = await data.json()
+      console.log(memes)
         // Fetch the memes from the 'memes' subreddit
         //const memes = await reddit.getSubreddit('memes').getRandomSubmission();
     
         // Extract the relevant information from each meme
         const memeData = {
-          id: "  ",
-          title: "API endpoint is under maintenance",
-          url: "https://i.insider.com/602ee9ced3ad27001837f2ac?width=1000&format=jpeg&auto=webp",
+         // id: memes.,
+          title: memes.title,//API endpoint is under maintenance",
+          url: memes.url,//"https://i.insider.com/602ee9ced3ad27001837f2ac?width=1000&format=jpeg&auto=webp",
+
           // subreddit: memes.subreddit.display_name,
-          // upvotes: memes.ups
+           upvotes: memes.ups
         };
     
         // Return the meme data as a JSON response
