@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
     try {
       const data = await fetch(`https://meme-api.com/gimme`)
       const memes = await data.json()
-      console.log(memes)
+      //console.log(memes)
         // Fetch the memes from the 'memes' subreddit
         //const memes = await reddit.getSubreddit('memes').getRandomSubmission();
     
