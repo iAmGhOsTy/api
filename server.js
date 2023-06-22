@@ -58,6 +58,8 @@ const translationRoutes = require("./routes/translationRoute.js");
 const urbandictionaryRoutes = require("./routes/urbandictionaryRoute.js")
 ;
 const randomsentenceRoutes = require("./routes/rancomsentenceRoute.js");
+
+const colorRoutes = require("./routes/colorRoute.js");
 //const clownRoutes = require("./routes/clownRoute.js");
 
 
@@ -124,6 +126,9 @@ app.use("/urbandictionary", urbandictionaryRoutes);
 
 // RANDOM SENTENCE ENDPOINT
 app.use("/randomsentence", randomsentenceRoutes);
+
+// COLOR ENDPOINT
+app.use("/color", colorRoutes);
 
 // HENTAI ENDPOINTS
 app.get("/hentai", (req, res) => {
