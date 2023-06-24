@@ -60,6 +60,9 @@ const urbandictionaryRoutes = require("./routes/urbandictionaryRoute.js")
 const randomsentenceRoutes = require("./routes/rancomsentenceRoute.js");
 
 const colorRoutes = require("./routes/colorRoute.js");
+
+const rankcardRoutes = require("./routes/cardRoutes/rankcardRoute.js");
+const welcomecardRoutes = require("./routes/cardRoutes/welcomecardRoute")
 //const clownRoutes = require("./routes/clownRoute.js");
 
 
@@ -129,6 +132,12 @@ app.use("/randomsentence", randomsentenceRoutes);
 
 // COLOR ENDPOINT
 app.use("/color", colorRoutes);
+
+// RANKCARD ENDPOINT
+app.use("/rankcard", rankcardRoutes);
+
+//CARDS ENDPOINTS
+app.use("/welcome",authMiddleware,welcomecardRoutes)
 
 // HENTAI ENDPOINTS
 app.get("/hentai", (req, res) => {
