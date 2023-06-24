@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 router.get('/', async (req, res) => {
   try {
-    const { username, avatar, background } = req.query;
+    const { username, avatar, background,text_color } = req.query;
 
     if (!username) {
       return res.status(400).send('Missing username query param');
@@ -12,9 +12,10 @@ router.get('/', async (req, res) => {
     if (!avatar) {
       return res.status(400).send('Missing avatar query param');
     }
+
     
-    const defaultBackground = 'https://cdn.discordapp.com/attachments/941744653231882270/1122194873081151558/circuit.png';
-    const imageURL = `https://api.discorddevtools.xyz/welcome-image-generator/generate.png?username=${username}&image=${avatar}&usernameColor=fff&title=Welcome+to+the+server!&titleColor=a9a9a9&textColor=a9a9a9&borderColor=a9a9a9&background=${background || defaultBackground}`;
+    let defaultBackground = background || 'https://cdn.discordapp.com/attachments/941744653231882270/1121506017201631232/bg.png';
+    const imageURL = `https://api.discorddevtools.xyz/welcome-image-generator/generate.png?username=${username}&image=${avatar}&usernameColor=00ffff&title=Welcome+to+the+server!&titleColor=${text_color||"#000000"}&textColor=${text_color||"#000000"}&borderColor=${text_color||"#000000"}&background=${defaultBackground}`;
 
     const response = await fetch(imageURL);
     if (!response.ok) {

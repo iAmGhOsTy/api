@@ -137,7 +137,7 @@ app.use("/color", colorRoutes);
 app.use("/rankcard", rankcardRoutes);
 
 //CARDS ENDPOINTS
-app.use("/welcome",authMiddleware,welcomecardRoutes)
+app.use("/welcomecard",authMiddleware,welcomecardRoutes)
 
 // HENTAI ENDPOINTS
 app.get("/hentai", (req, res) => {
