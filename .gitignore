@@ -106,7 +106,7 @@ dist
 
 # PRIVATE SFTP
 .vscode/
-
+package-lock.json
 # PERSONAL STUFF
 Data API.zip
 trials
