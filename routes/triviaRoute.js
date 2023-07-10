@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
         incorrect_answers: triviaD.results[0].incorrect_answers,
         type: triviaD.type,
     }
-    console.log(trivia)
+
         res.status(200).json( trivia )
     } catch (e) { console.log(e) }
 });
