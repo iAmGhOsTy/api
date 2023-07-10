@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
    try {
-    const data = await fetch(`https://opentdb.com/api.php?amount=1&category=17`)
+    const data = await fetch(`https://opentdb.com/api.php?amount=1&category=0`)
     const triviaD = await data.json()
 
     const trivia = {
