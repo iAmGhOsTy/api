@@ -124,4 +124,4 @@ const languageTable = [
   "Entertainment: Cartoon & Animations": 32
 }
 
-module.exports = {translateText,languageTable }
+module.exports = {translateText,languageTable,categories }
