@@ -2,19 +2,19 @@ require('dotenv').config()
 const fetch = require('node-fetch')
 
 
-async function translateText(text,source,target){
-    try{
+async function translateText(text, source, target) {
+    try {
         const response = await fetch(
             `https://api.mymemory.translated.net/get?q=${text}&langpair=${source}|${target}&key=${process.env.translation_api_key}`)
         const data = await response.json()
 
-        if(data.responseData && data.responseData.translatedText){
+        if (data.responseData && data.responseData.translatedText) {
             return data.responseData.translatedText
-        } else{
+        } else {
             throw new Error('Translation Failed')
         }
-        
-    }catch(err){
+
+    } catch (err) {
         console.log(err)
     }
 }
@@ -95,33 +95,35 @@ const languageTable = [
     { "language": "Uzbek", "code": "uz" },
     { "language": "Vietnamese", "code": "vi" },
     { "language": "Welsh", "code": "cy" }
-  ]
+]
 
-  const categories =    {   "Any Category": 0,
-  "General Knowledge": 9,
-  "Entertainment: Books": 10,
-  "Entertainment: Film": 11,
-  "Entertainment: Music": 12,
-  "Entertainment: Musicals & Theatres": 13,
-  "Entertainment: Television": 14,
-  "Entertainment: Video Games": 15,
-  "Entertainment: Board Games": 16,
-  "Science & Nature": 17,
-  "Science: Computers": 18,
-  "Science: Mathematics": 19,
-  "Mythology": 20,
-  "Sports": 21,
-  "Geography": 22,
-  "History": 23,
-  "Politics": 24,
-  "Art": 25,
-  "Celebrities": 26,
-  "Animals": 27,
-  "Vehicles": 28,
-  "Entertainment: Comics": 29,
-  "Science: Gadgets": 30,
-  "Entertainment: Japanese Anime & Manga": 31,
-  "Entertainment: Cartoon & Animations": 32
+const categories = {
+    "Any Category": 0,
+    "General Knowledge": 9,
+    "Entertainment: Books": 10,
+    "Entertainment: Film": 11,
+    "Entertainment: Music": 12,
+    "Entertainment: Musicals & Theatres": 13,
+    "Entertainment: Television": 14,
+    "Entertainment: Video Games": 15,
+    "Entertainment: Board Games": 16,
+    "Science & Nature": 17,
+    "Science: Computers": 18,
+    "Science: Mathematics": 19,
+    "Mythology": 20,
+    "Sports": 21,
+    "Geography": 22,
+    "History": 23,
+    "Politics": 24,
+    "Art": 25,
+    "Celebrities": 26,
+    "Animals": 27,
+    "Vehicles": 28,
+    "Entertainment: Comics": 29,
+    "Science: Gadgets": 30,
+    "Entertainment: Japanese Anime & Manga": 31,
+    "Entertainment: Cartoon & Animations": 32
 }
 
-module.exports = {translateText,languageTable,categories }
+const CountryCode = ["USD", "AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD", "BTN", "BWP", "BYN", "BZD", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ERN", "ETB", "EUR", "FJD", "FKP", "FOK", "GBP", "GEL", "GGP", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD", "HKD", "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "IMP", "INR", "IQD", "IRR", "ISK", "JEP", "JMD", "JOD", "JPY", "KES", "KGS", "KHR", "KID", "KMF", "KRW", "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MNT", "MOP", "MRU", "MUR", "MVR", "MWK", "MXN", "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLE", "SLL", "SOS", "SRD", "SSP", "STN", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP", "TRY", "TTD", "TVD", "TWD", "TZS", "UAH", "UGX", "UYU", "UZS", "VES", "VND", "VUV", "WST", "XAF", "XCD", "XDR", "XOF", "XPF", "YER", "ZAR", "ZMW", "ZWL"]
+module.exports = { translateText, languageTable, categories, CountryCode }

@@ -67,6 +67,8 @@ const welcomecardRoutes = require("./routes/cardRoutes/welcomecardRoute")
 const triviaRoutes = require("./routes/triviaRoute.js");
 //const clownRoutes = require("./routes/clownRoute.js");
 
+const convertRoutes = require("./routes/convertRoute.js");
+
 
 // HOME PAGE
 app.get('/', (req, res) => {
@@ -170,6 +172,8 @@ app.use("/hentai/thighs",authMiddleware,thighsRoute)
 app.use("/hentai/yuri",authMiddleware,yuriRoute)
 
 app.use("/trivia",triviaRoutes)
+
+app.use("/convert",convertRoutes)
 
 
 // CLOWN ENDPOINT
