@@ -69,6 +69,8 @@ const triviaRoutes = require("./routes/triviaRoute.js");
 
 const convertRoutes = require("./routes/convertRoute.js");
 
+const quoteRoutes = require("./routes/quoteRoute.js");
+
 
 // HOME PAGE
 app.get('/', (req, res) => {
@@ -142,6 +144,9 @@ app.use("/rankcard", rankcardRoutes);
 
 //CARDS ENDPOINTS
 app.use("/welcomecard",authMiddleware,welcomecardRoutes)
+
+//QUOTE ENDPOINT
+app.use("/quote", quoteRoutes);
 
 // HENTAI ENDPOINTS
 app.get("/hentai", (req, res) => {
