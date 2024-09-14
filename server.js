@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const authMiddleware = require('./middleware/authMiddleware')
 
-//app.use)
+//app.use
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms :res[content-length] ":referrer" ":user-agent" ":req[x-api-key]"'));
 app.set('view engine', 'ejs');
